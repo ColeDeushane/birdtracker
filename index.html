@@ -170,6 +170,19 @@ main{
   object-fit:cover;
   display:block;
 }
+.photo-panel{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+.photo-caption{
+  font-size:12px;
+  text-align:center;
+  font-weight:bold;
+  color:#2d5a3d;
+  min-height:16px;
+}
 .field-row{
   display:grid;
   grid-template-columns:1fr auto;
@@ -326,8 +339,11 @@ main{
         <input class="value-input" data-field="checklists" type="number" min="0" value="0">
       </div>
       </div>
-      <div class="photo-box">
-        <img class="rotating-photo" src="" alt="Bird photo">
+      <div class="photo-panel">
+        <div class="photo-box">
+          <img class="rotating-photo" src="" alt="Bird photo">
+        </div>
+        <div class="photo-caption">Photo Name</div>
       </div>
     </div>
   </div>
@@ -360,8 +376,11 @@ main{
         <input class="value-input" data-field="checklists" type="number" min="0" value="0">
       </div>
       </div>
-      <div class="photo-box">
-        <img class="rotating-photo" src="" alt="Bird photo">
+      <div class="photo-panel">
+        <div class="photo-box">
+          <img class="rotating-photo" src="" alt="Bird photo">
+        </div>
+        <div class="photo-caption">Photo Name</div>
       </div>
     </div>
   </div>
@@ -394,8 +413,11 @@ main{
         <input class="value-input" data-field="checklists" type="number" min="0" value="0">
       </div>
       </div>
-      <div class="photo-box">
-        <img class="rotating-photo" src="" alt="Bird photo">
+      <div class="photo-panel">
+        <div class="photo-box">
+          <img class="rotating-photo" src="" alt="Bird photo">
+        </div>
+        <div class="photo-caption">Photo Name</div>
       </div>
     </div>
   </div>
@@ -428,8 +450,11 @@ main{
         <input class="value-input" data-field="checklists" type="number" min="0" value="0">
       </div>
       </div>
-      <div class="photo-box">
-        <img class="rotating-photo" src="" alt="Bird photo">
+      <div class="photo-panel">
+        <div class="photo-box">
+          <img class="rotating-photo" src="" alt="Bird photo">
+        </div>
+        <div class="photo-caption">Photo Name</div>
       </div>
     </div>
   </div>
@@ -585,10 +610,48 @@ function sortCards() {
 
 
 const PERSON_PHOTOS = {
-  will: ["will/image1.webp"],
-  carson: ["carson/image1.jpg", "carson/image2.jpg", "carson/image3.jpg", "carson/image4.jpg", "carson/image5.jpg", "carson/image6.jpg", "carson/image7.jpg", "carson/image8.jpg", "carson/image9.jpg", "carson/image10.jpg"],
-  cole: ["cole/image1.jpg", "cole/image2.jpg", "cole/image3.jpg", "cole/image4.jpg", "cole/image5.jpg", "cole/image6.jpg", "cole/image7.jpg", "cole/image8.jpg", "cole/image9.jpg", "cole/image10.jpg", "cole/image11.jpg"],
-  ryan: ["ryan/image1.jpg", "ryan/image2.jpg", "ryan/image3.jpg", "ryan/image4.jpg", "ryan/image5.jpg", "ryan/image6.jpg", "ryan/image7.jpg", "ryan/image8.jpg", "ryan/image9.jpg", "ryan/image10.jpg"]
+  will: [
+    {src:"will/image1.jpg",name:"House Finch"},
+    {src:"will/image2.jpg",name:"House Finch"},
+    {src:"will/image3.jpg",name:"House Finch"}
+  ],
+  carson: [
+    {src:"carson/image1.jpg",name:"Canada Goose (Oklahoma)"},
+    {src:"carson/image2.jpg",name:"Red-Winged Blackbird (Oklahoma)"},
+    {src:"carson/image3.jpg",name:"American Robin (Oklahoma)"},
+    {src:"carson/image4.jpg",name:"Great-Tailed Grackle (Oklahoma)"},
+    {src:"carson/image5.jpg",name:"Scissor-Tailed Flycatcher (Oklahoma)"},
+    {src:"carson/image6.jpg",name:"Yellow-Crowned Night Heron (Oklahoma)"},
+    {src:"carson/image7.jpg",name:"Great Egret (Oklahoma)"},
+    {src:"carson/image8.jpg",name:"Northern Cardinal (Oklahoma)"},
+    {src:"carson/image9.jpg",name:"Painted Bunting (Oklahoma)"},
+    {src:"carson/image10.jpg",name:"Western Kingbird (Oklahoma)"}
+  ],
+  cole: [
+    {src:"cole/image1.jpg",name:"Bushtit (California)"},
+    {src:"cole/image2.jpg",name:"Red-Shouldered Hawk (California)"},
+    {src:"cole/image3.jpg",name:"Hooded Oriole (California)"},
+    {src:"cole/image4.jpg",name:"Nuttal's Woodpecker (California)"},
+    {src:"cole/image5.jpg",name:"Western Bluebird (California)"},
+    {src:"cole/image6.jpg",name:"Acorn Woodpecker (California)"},
+    {src:"cole/image7.jpg",name:"Double-Crested Cormorant (California)"},
+    {src:"cole/image8.jpg",name:"Say's Phoebe (California)"},
+    {src:"cole/image9.jpg",name:"Allen's Hummingbird (California)"},
+    {src:"cole/image10.jpg",name:"House Finch (California)"},
+    {src:"cole/image11.jpg",name:"Killdeer (California)"}
+  ],
+  ryan: [
+    {src:"ryan/image1.jpg",name:"Great Blue Heron (California)"},
+    {src:"ryan/image2.jpg",name:"American Robin (California)"},
+    {src:"ryan/image3.jpg",name:"Canada Goose (California)"},
+    {src:"ryan/image4.jpg",name:"Rock Pigeon (California)"},
+    {src:"ryan/image5.jpg",name:"Cassin's Kingbird (California)"},
+    {src:"ryan/image6.jpg",name:"Northern House Wren (California)"},
+    {src:"ryan/image7.jpg",name:"Scrub Jay (California)"},
+    {src:"ryan/image8.jpg",name:"Acorn Woodpecker (California)"},
+    {src:"ryan/image9.jpg",name:"Anna's Hummingbird (California)"},
+    {src:"ryan/image10.jpg",name:"Anna's Hummingbird (California)"}
+  ]
 };
 
 function startPhotoRotation() {
@@ -599,12 +662,19 @@ function startPhotoRotation() {
 
     if (!img || photos.length === 0) return;
 
+    const caption = card.querySelector(".photo-caption");
     let index = 0;
-    img.src = photos[index];
+
+    function updatePhoto(){
+      img.src = photos[index].src;
+      if(caption) caption.textContent = photos[index].name;
+    }
+
+    updatePhoto();
 
     setInterval(() => {
       index = (index + 1) % photos.length;
-      img.src = photos[index];
+      updatePhoto();
     }, 5000);
   });
 }
